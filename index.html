@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AR Video Player</title>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ar-js@3.4.2/aframe/build/aframe-ar.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+      #instructions { position: absolute; top: 0; left: 0; background: white; padding: 10px; z-index: 100; }
+    </style>
+  </head>
+  <body>
+    <div id="instructions">
+      <b>Point your camera at a Hiro marker</b> (or customize for markerless AR)
+    </div>
+    <a-scene embedded arjs>
+      <!-- Example: Use a marker (e.g., Hiro marker, printable from ar-js-org.github.io/AR.js-Docs/) -->
+      <a-marker preset="hiro">
+        <!-- Video plane (for MP4) -->
+        <a-video 
+          src="#mp4-video" 
+          width="2" height="1"
+          position="0 0.5 0"
+          rotation="-90 0 0"
+        ></a-video>
+        <!-- For YouTube: use <a-entity> with an <iframe> as a texture (advanced, see note below) -->
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+    
+    <!-- Hidden HTML5 video element for MP4 playback -->
+    <video id="mp4-video" src="https://www.w3schools.com/html/mov_bbb.mp4" loop="true" autoplay="true" crossorigin="anonymous" webkit-playsinline playsinline style="display: none"></video>
+    
+    <!-- Markerless AR is possible, see AR.js location-based or NFT marker features -->
+    
+    <script>
+      // Autoplay workaround for iOS
+      document.addEventListener('DOMContentLoaded', function () {
+        var v = document.getElementById('mp4-video');
+        v.play();
+      });
+    </script>
+  </body>
+</html>
